@@ -1,6 +1,6 @@
-import { config } from 'dotenv'
+import dotenv from 'dotenv'
 
-config()
+dotenv.config()
 
 const config = {
   dev: process.env.NODE_ENV !== 'production',
@@ -11,3 +11,5 @@ const config = {
   dbPort: process.env.DB_PORT,
   dbName: process.env.DB_NAME
 }
+
+module.exports = { config }

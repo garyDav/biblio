@@ -1,14 +1,16 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import path from 'path'
+import boom from 'boom'
+import { cliente } from './routes'
+import isRequestAjaxOrAPI from './utils/isRequestAjaxOrAPI'
 
-const {
+import {
   logErrors,
   wrapErrors,
   clientErrorHandler,
   errorHandler
-} = require('./utils/middlewares/errorsHandlers')
-
-const isRequestAjaxOrAPI = require('./utils/isRequestAjaxOrAPI')
+} from './utils/middlewares/errorsHandlers'
 
 // App
 const app = express()
@@ -24,6 +26,10 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
+// Routes
+app.use('/api/clientes', cliente)
+
+// Security
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Request-With, Content-Type, Accept')

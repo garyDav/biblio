@@ -17,6 +17,9 @@ export default {
   create: async (p, c) => {
     debug(`Creating new client ${c}`)
     const cliente = new Cliente(c)
-    return cliente.save()
+    const saveCliente = await cliente.save()
+    p.cliente = saveCliente
+    await p.save()
+    return saveCliente
   }
 }

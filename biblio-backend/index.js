@@ -15,7 +15,8 @@ const debug = Debug('biblio-backend:root'),
       server = createServer(app)
 
 async function start() {
-  await mongoose.connect(MONGO_URI)
+  debug(MONGO_URI)
+  await mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
 
   // Server
   server.listen(config.port, _ => {
