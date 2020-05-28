@@ -8,14 +8,13 @@ const USER = encodeURIComponent(config.dbUser)
 const PASSWORD = encodeURIComponent(config.dbPassword)
 const DB_NAME = config.dbName;
 
-//const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME}/test?retryWrites=true&w=majority`
 const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME}`
 
 const debug = Debug('biblio-backend:root'),
       server = createServer(app)
 
 async function start() {
-  debug(MONGO_URI)
+  //debug(MONGO_URI)
   await mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
 
   // Server

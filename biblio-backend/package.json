@@ -26,7 +26,8 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
-    "start:server": "NODE_ENV=development DEBUG=biblio-backend* nodemon index --exec babel-node"
+    "start:server": "NODE_ENV=development DEBUG=biblio-backend* nodemon index --exec babel-node",
+    "start:prod": "NODE_ENV=production DEBUG=biblio-backend* nodemon index --exec babel-node"
   },
   "keywords": [],
   "author": "@garyDav",

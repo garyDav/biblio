@@ -3,9 +3,9 @@ import Joi from 'joi'
 const clienteIdSchema = Joi.string().regex(/^[0-9a-fA-F]{24}&/)
 
 const createClienteSchema = {
-  name: Joi
+  nombre: Joi
     .string()
-    .max(50)
+    .max(70)
     .required(),
   celular: Joi
     .number()

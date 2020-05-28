@@ -5,8 +5,8 @@ const { ObjectId } = Schema.Types
 const PrestamoSchema = new Schema({
   cliente: { type: ObjectId, ref: 'Cliente', required: true },
   fecha_prestamo: { type: String, required: true },
-  fecha_devolucion: { type: String, required: true },
-  fecha_devuelto: { type: String, required: false },
+  fecha_limite_devolucion: { type: String, required: true },
+  fecha_devolucion: { type: String, required: false, default: '' },
   libro: { type: ObjectId, ref: 'Libro', required: true }
 })
 

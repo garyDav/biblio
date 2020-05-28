@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import path from 'path'
 import boom from 'boom'
-import { cliente } from './routes'
+import { cliente, libro, prestamo } from './routes'
 import isRequestAjaxOrAPI from './utils/isRequestAjaxOrAPI'
 
 import {
@@ -28,6 +28,8 @@ app.set('view engine', 'pug')
 
 // Routes
 app.use('/api/clientes', cliente)
+app.use('/api/libros', libro)
+app.use('/api/prestamos', prestamo)
 
 // Security
 app.use((req, res, next) => {

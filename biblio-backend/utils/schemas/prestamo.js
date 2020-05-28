@@ -1,22 +1,21 @@
 import Joi from 'joi'
+import { createClienteSchema } from './cliente'
 
-const prestamoIdSchema = Joi.string().regex(/^[0-9a-fA-F]{24}&/)
+const prestamoIdSchema = Joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
 
 const createPrestamoSchema = {
-  cliente: Joi.string().regex(/^[0-9a-fA-F]{24}&/),
-  fecha_prestamo: Joi
-    .string()
-    .max(50)
-    .required(),
-  fecha_devolucion: Joi
-    .string()
-    .max(50)
-    .required(),
-  fecha_devuelto: Joi
-    .string()
-    .max(50)
-    .required(),
-  libro: Joi.string().regex(/^[0-9a-fA-F]{24}&/)
+  id_libro: prestamoIdSchema,
+  cliente: createClienteSchema,
+  prestamo: {
+    fecha_prestamo: Joi
+      .string()
+      .max(10)
+      .required(),
+    fecha_limite_devolucion: Joi
+      .string()
+      .max(10)
+      .required()
+  }
 }
 
 module.exports = {

@@ -1,9 +1,17 @@
 import Joi from 'joi'
 
-const libroIdSchema = Joi.string().regex(/^[0-9a-fA-F]{24}&/)
+const libroIdSchema = Joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
 
 const createLibroSchema = {
-  nombre: Joi
+  codigo: Joi
+    .string()
+    .max(10)
+    .required(),
+  isbn: Joi
+    .string()
+    .max(20)
+    .required(),
+  titulo: Joi
     .string()
     .max(50)
     .required(),
@@ -15,20 +23,9 @@ const createLibroSchema = {
     .string()
     .max(50)
     .required(),
-  cantidad: Joi
+  año_pub: Joi
     .number()
-    .min(0)
-    .max(100),
-  estado: Joi
-    .string()
-    .max(50)
-    .required(),
-  fecha_lanzamiento: Joi
-    .string()
-    .max(8)
-    .required(),
-  baja: [],
-  prestamos: []
+    .required()
 }
 
 module.exports = {
