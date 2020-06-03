@@ -11,8 +11,8 @@ class LibroService {
     return data || []
   }
 
-  async getLibro({ libroId }) {
-    const data = await libro.findById(libroId)
+  async getLibro({ codigo }) {
+    const data = await libro.findByCodigo(codigo)
     return data || {}
   }
 
@@ -21,8 +21,8 @@ class LibroService {
     return create
   }
 
-  async bajaLibro({ libroId, motivo_baja }) {
-    const baja = await libro.bajaLibro({ libroId, motivo_baja })
+  async bajaLibro({ codigo, motivo_baja }) {
+    const baja = await libro.bajaLibro({ codigo, motivo_baja })
     return baja
   }
 }

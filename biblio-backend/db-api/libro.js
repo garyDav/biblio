@@ -3,6 +3,13 @@ import { Libro } from '../models'
 
 const debug = new Debug('biblio-backend:db-api:libro')
 
+const getCodigo = _ => {
+  const date = new Date()
+  const _date = new Date(date.valueOf() - date.getTimezoneOffset() * 60000)
+  const formatted = _date.toISOString().slice(0,10).split('-')
+  return `${formatted[0]}-${date.getTime()}`
+}
+
 export default {
   findAll: () => {
     //throw Error('error generado')
@@ -15,30 +22,29 @@ export default {
     return Libro
       .find()
       .populate({
-        path: 'prestamos',
-        populate: { path: 'cliente' }
+        path: 'prestamos'
       })
   },
 
-  findById: (_id) => {
-    debug(`Find prestamo with id ${_id}`)
+  findByCodigo: (codigo) => {
+    debug(`Find prestamo with codigo ${codigo}`)
     return Libro
-      .findOne({ _id })
+      .findOne({ codigo })
       .populate({
-        path: 'prestamos',
-        populate: { path: 'cliente' }
+        path: 'prestamos'
       })
   },
 
   create: (l) => {
     debug(`Creating new libro ${l}`)
+    l.codigo = getCodigo()
     const libro = new Libro(l)
     return libro.save()
   },
 
-  bajaLibro: async ({ libroId, motivo_baja }) => {
-    debug(`Update baja libro ${ libroId } ${ motivo_baja }`)
-    const libro = await Libro.findOne({ _id: libroId})
+  bajaLibro: async ({ codigo, motivo_baja }) => {
+    debug(`Update baja libro ${ codigo } ${ motivo_baja }`)
+    const libro = await Libro.findOne({ codigo })
     if (Object.keys(libro).length !== 0) {
       if (libro.estado !== 'baja') {
         libro.estado = 'baja'

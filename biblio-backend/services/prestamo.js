@@ -1,18 +1,13 @@
 import { prestamo } from '../db-api'
-import ClienteService from './cliente'
-
-const clienteService = new ClienteService()
 
 class PrestamoService {
-  async getPrestamosByIdLibro(_id) {
-    const data = await prestamo.findLibroById(_id)
+  async getPrestamosByCodigoLibro(codigo) {
+    const data = await prestamo.findLibroByCodigo(codigo)
     return data || []
   }
 
-  async createPrestamo({ id_libro, _cliente, _prestamo }) {
-    const cliente = await clienteService.createCliente({ _cliente })
-    const id_cliente = cliente._id
-    const savedPrestamo = await prestamo.create({ id_libro, id_cliente, _prestamo})
+  async createPrestamo({ codigo, _prestamo }) {
+    const savedPrestamo = await prestamo.create({ codigo, _prestamo})
     return savedPrestamo
   }
 

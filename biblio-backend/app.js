@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import path from 'path'
 import boom from 'boom'
-import { cliente, libro, prestamo } from './routes'
+import { libro, prestamo } from './routes'
 import isRequestAjaxOrAPI from './utils/isRequestAjaxOrAPI'
 
 import {
@@ -27,7 +27,6 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 // Routes
-app.use('/api/clientes', cliente)
 app.use('/api/libros', libro)
 app.use('/api/prestamos', prestamo)
 

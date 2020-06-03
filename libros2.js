@@ -1,13 +1,13 @@
 libros: [
   {
-    codigo: 'C-L01',
-    nombre: 'Nombre Libro 1',
+    codigo: 'gestion-correlativo (2020-1)',
+    isbn: '0123456789',
+    titulo: 'Nombre Libro 1',
     autor: 'Autor 1',
     editorial: 'Editorial 1',
-    copia: 2,
-    estado: 'disponible | prestado',
-    baja: { estado: true ,detalle: 'asdf'},
-    fecha_lanzamiento: '15/05/1999',
+    año_pub: '2005',
+    estado: 'disponible | prestado | baja',
+    motivo_baja: ' "" | deterioro | extravío',
     prestamos: [
       {
         cliente: {
@@ -15,30 +15,8 @@ libros: [
           celular: 75784496
         },
         fecha_prestamo: '05/06/2019',
-        fecha_devolucion: '18/06/2019',
-        fecha_devuelto: '17/06/2019'
-      }
-    ]
-  },
-  {
-    nombre: 'Nombre Libro 2',
-    autor: 'Autor 2',
-    editorial: 'Editorial 1',
-    copia: 1,
-    estado: 'baja | disponible',
-    fecha_lanzamiento: '17/04/2005',
-    baja: [
-      { detalle: 'extravío' }
-    ],
-    prestamos: [
-      {
-        cliente: {
-          nombre: 'Cliente 1',
-          celular: 75784496
-        },
-        fecha_prestamo: '05/06/2019',
-        fecha_devolucion: '18/06/2019',
-        fecha_devuelto: '17/06/2019'
+        fecha_limite_devolucion: '18/06/2019',
+        fecha_devolucion: ''
       }
     ]
   }
