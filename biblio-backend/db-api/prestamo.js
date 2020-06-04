@@ -10,24 +10,26 @@ const date_dmy = _ => {
 }
 
 export default {
-  findLibroById: (_id) => {
-    debug('Finding all prestamos by libro')
-    return Prestamo.find({ libro: _id }).populate('cliente')
+  findLibroByCodigo: async (codigo) => {
+    debug('Finding all prestamos by one libro')
+    let libro = await Libro.findOne({ codigo })
+    return Prestamo.find({ libro: libro._id })
   },
 
-  create: async ({ id_libro, id_cliente, _prestamo }) => {
+  create: async ({ codigo, _prestamo }) => {
     debug(`Creating new prestamo ${_prestamo}`)
-    const libro = await Libro.findOne({ _id: id_libro })
-    if(Object.keys(libro).length !== 0 && libro.estado == 'disponible') {
-      _prestamo.libro = id_libro
-      _prestamo.cliente = id_cliente
-      const prestamo = new Prestamo(_prestamo)
-      const savePrestamo = await prestamo.save()
-      libro.prestamos.push(savePrestamo._id)
-      libro.estado = 'prestado'
-      await libro.save()
-      return savePrestamo
-    } else throw Error('error libro._id: Libro no encontrado, o no disponible')
+    const libro = await Libro.findOne({ codigo })
+    if(Object.keys(libro).length !== 0) {
+      if(libro.estado == 'disponible') {
+        _prestamo.libro = libro._id
+        const prestamo = new Prestamo(_prestamo)
+        const savePrestamo = await prestamo.save()
+        libro.prestamos.push(savePrestamo._id)
+        libro.estado = 'prestado'
+        await libro.save()
+        return savePrestamo
+      } else throw Error('error libro: Libro no disponible')
+    } else throw Error('error libro._id: Libro no encontrado')
   },
 
   devolucion: async ({ id_prestamo }) => {
@@ -35,12 +37,14 @@ export default {
     const prestamo = await Prestamo.findOne({ _id: id_prestamo})
     if (Object.keys(prestamo).length !== 0) {
       const libro = await Libro.findOne({ _id: prestamo.libro })
-      if (Object.keys(libro).length !== 0 && libro.estado == 'prestado') {
-        prestamo.fecha_devolucion = date_dmy()
-        libro.estado = 'disponible'
-        await libro.save()
-        return await prestamo.save()
-      } else throw Error('error libro._id: Libro no encontrado, o disponible')
+      if (Object.keys(libro).length !== 0) {
+        if(libro.estado == 'prestado') {
+          prestamo.fecha_devolucion = date_dmy()
+          libro.estado = 'disponible'
+          await libro.save()
+          return await prestamo.save()
+        } else throw Error('error libro._id: Libro no disponible')
+      } else throw Error('error libro._id: Libro no encontrado')
     } else throw Error('error prestamo._id: Préstamo no encontrado')
   }
 }

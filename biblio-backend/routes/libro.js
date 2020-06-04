@@ -3,7 +3,7 @@ import LibroService from '../services/libro'
 import validation from '../utils/middlewares/validationHandler'
 
 import {
-  libroIdSchema,
+  codigoSchema,
   createLibroSchema
 } from '../utils/schemas/libro'
 
@@ -21,11 +21,11 @@ app.get('/', async (req, res, next) => {
   }
 })
 
-// GET /api/libros/:libroId
-app.get('/:libroId', validation({libroId: libroIdSchema}, 'params'), async (req, res, next) => {
-  const { libroId } = req.params
+// GET /api/libros/:codigo
+app.get('/:codigo', validation({codigo: codigoSchema}, 'params'), async (req, res, next) => {
+  const { codigo } = req.params
   try {
-    const libro = await libroService.getLibro({ libroId })
+    const libro = await libroService.getLibro({ codigo })
     res.status(200).json(libro)
   } catch (err) {
     next(err)
@@ -48,13 +48,13 @@ app.post('/', validation(createLibroSchema), async (req, res, next) => {
 
 })
 
-// PUT /api/libros/baja/:libroId
-app.put('/baja/:libroId', validation({ libroId: libroIdSchema }, 'params'), async (req, res, next) => {
-  const { libroId } = req.params
+// PUT /api/libros/baja/:codigo
+app.put('/baja/:codigo', validation({ codigo: codigoSchema }, 'params'), async (req, res, next) => {
+  const { codigo } = req.params
   const { motivo_baja } = req.body
 
   try {
-    const libro = await libroService.bajaLibro({ libroId, motivo_baja })
+    const libro = await libroService.bajaLibro({ codigo, motivo_baja })
     res.status(201).json({
       message: 'Libro dado de baja',
       data: libro

@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "2d03b135-63a9-4787-8cb3-7389dac4049e",
+		"name": "biblioteca",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "savePrestamo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"codigo\": \"2020-1591224901722\",\n\t\"prestamo\": {\n\t\t\"nombre\": \"Cliente 2\",\n\t\t\"celular\": 75764415,\n\t\t\"fecha_prestamo\": \"30/05/2020\",\n\t\t\"fecha_limite_devolucion\": \"06/06/2020\"\n\t}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/prestamos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"prestamos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveLibro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"isbn\": \"987-3-16-102050-0\",\n    \"titulo\": \"Libro 4\",\n    \"autor\": \"Autor 4\",\n    \"editorial\": \"Editorial 2\",\n    \"año_pub\": 2019\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listLibros",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3500/api/libros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"libros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listLibroByCodigo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/api/libros/2020-1591224789563",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"libros",
+						"2020-1591224789563"
+					]
+				},
+				"description": "listar todo el detalle de un libro"
+			},
+			"response": []
+		},
+		{
+			"name": "listPrestamosByCodigoLibro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/api/prestamos/libro/2020-1591224789563",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"prestamos",
+						"libro",
+						"2020-1591224789563"
+					]
+				},
+				"description": "obtener todos los prestamos de un libro en particular"
+			},
+			"response": []
+		},
+		{
+			"name": "devolverPrestamo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/api/prestamos/devolucion/5ed82c0e202f862ac48a3655",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"prestamos",
+						"devolucion",
+						"5ed82c0e202f862ac48a3655"
+					]
+				},
+				"description": "actualiza la devolución del prestamo y cambia el estado del libro"
+			},
+			"response": []
+		},
+		{
+			"name": "bajaLibro",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"motivo_baja\": \"deterioro\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/api/libros/baja/2020-1591225136822",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"libros",
+						"baja",
+						"2020-1591225136822"
+					]
+				},
+				"description": "dar de baja a un libro"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

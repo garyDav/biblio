@@ -1,12 +1,8 @@
 import Joi from 'joi'
 
-const libroIdSchema = Joi.string().regex(/^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i)
+const codigoSchema = Joi.string().max(20)
 
 const createLibroSchema = {
-  codigo: Joi
-    .string()
-    .max(10)
-    .required(),
   isbn: Joi
     .string()
     .max(20)
@@ -29,6 +25,6 @@ const createLibroSchema = {
 }
 
 module.exports = {
-  libroIdSchema,
+  codigoSchema,
   createLibroSchema
 }
