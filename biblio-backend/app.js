@@ -19,6 +19,14 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+// Security
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Request-With, Content-Type, Accept')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS')
+  next()
+})
+
 // Static files
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
@@ -29,14 +37,6 @@ app.set('view engine', 'pug')
 // Routes
 app.use('/api/libros', libro)
 app.use('/api/prestamos', prestamo)
-
-// Security
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Request-With, Content-Type, Accept')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS')
-  next()
-})
 
 app.use((req, res, next) => {
   if(isRequestAjaxOrAPI(req)) {
