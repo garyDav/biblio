@@ -26,7 +26,7 @@
   "scripts": {
     "start": "npm run start:server",
     "start:server": "NODE_ENV=development DEBUG=biblio-backend* nodemon index --exec babel-node",
-    "start:serverw": "SET NODE_ENV=development nodemon index --exec babel-node",
+    "start:serverw": "SET NODE_ENV=development & DEBUG=biblio-backend* & nodemon index --exec babel-node",
     "start:prod": "NODE_ENV=production DEBUG=biblio-backend* nodemon index --exec babel-node"
   },
   "keywords": [],
