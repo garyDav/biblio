@@ -10,11 +10,40 @@ const getCodigo = _ => {
   return `${formatted[0]}-${date.getTime()}`
 }
 
+
+const tolerancia = fecha_limite => {
+  const fecha = fecha_limite.split('/')
+  const limite = new Date( Number(fecha[2]), Number(fecha[1]), Number(fecha[0]) )
+  
+  const date = new Date()
+  const _date = new Date(date.valueOf() - date.getTimezoneOffset() * 60000)
+  const formatted = _date.toISOString().slice(0,10).split('-')
+
+  const ahora = new Date(Number( formatted[0]), Number(formatted[1]), Number(formatted[2]) )
+  if( limite - ahora >= -86400000 )
+    return true
+  else
+    return false
+}
+
 export default {
-  findAll: () => {
+  findAll: async () => {
     //throw Error('error generado')
     debug('Finding all libros')
-    return Libro.find()
+    const libros = await Libro.find().populate({ path: 'prestamos' })
+    libros.forEach(async li => {
+      if(li.prestamos.length) {
+        let lastPrestamo = li.prestamos[li.prestamos.length - 1]
+        if(!lastPrestamo.fecha_devolucion) {
+          if( !tolerancia(lastPrestamo.fecha_limite_devolucion) ) {
+            li.estado = 'deben'
+            await li.save()
+          }
+        }
+      }
+    })
+
+    return libros
   },
 
   findAllDetails: () => {
