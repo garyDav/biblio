@@ -38,7 +38,7 @@ export default {
     if (Object.keys(prestamo).length !== 0) {
       const libro = await Libro.findOne({ _id: prestamo.libro })
       if (Object.keys(libro).length !== 0) {
-        if(libro.estado == 'prestado') {
+        if(libro.estado == 'prestado' || libro.estado == 'deben') {
           prestamo.fecha_devolucion = date_dmy()
           libro.estado = 'disponible'
           await libro.save()
