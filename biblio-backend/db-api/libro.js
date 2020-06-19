@@ -46,6 +46,25 @@ export default {
     return libros
   },
 
+  findAllReporte: async() => {
+    /*debug('Finding all libros Reporte')
+    const libros = await Libro.find()
+    const reporte = []
+    libros.forEach(async li => {
+      if(li.isb) {
+        let lastPrestamo = li.prestamos[li.prestamos.length - 1]
+        if(!lastPrestamo.fecha_devolucion) {
+          if( !tolerancia(lastPrestamo.fecha_limite_devolucion) ) {
+            li.estado = 'deben'
+            await li.save()
+          }
+        }
+      }
+    })
+
+    return libros*/
+  },
+
   findAllDetails: () => {
     debug('Finding all libros and prestamos')
     return Libro

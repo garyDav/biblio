@@ -6,6 +6,11 @@ class LibroService {
     return data || []
   }
 
+  async getLibrosReporte() {
+    const data = await libro.findAllReporte()
+    return data || []
+  }
+
   async getLibrosAll() {
     const data = await libro.findAllDetails()
     return data || []

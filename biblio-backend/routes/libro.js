@@ -21,6 +21,16 @@ app.get('/', async (req, res, next) => {
   }
 })
 
+// GET /api/libros/reporte
+app.get('/', async (req, res, next) => {
+  try {
+    const libros = await libroService.getLibrosReporte()
+    res.status(200).json(libros)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // GET /api/libros/:codigo
 app.get('/:codigo', validation({codigo: codigoSchema}, 'params'), async (req, res, next) => {
   const { codigo } = req.params
