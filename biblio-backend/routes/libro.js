@@ -22,7 +22,7 @@ app.get('/', async (req, res, next) => {
 })
 
 // GET /api/libros/reporte
-app.get('/', async (req, res, next) => {
+app.get('/reporte', async (req, res, next) => {
   try {
     const libros = await libroService.getLibrosReporte()
     res.status(200).json(libros)

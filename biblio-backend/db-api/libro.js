@@ -47,22 +47,42 @@ export default {
   },
 
   findAllReporte: async() => {
-    /*debug('Finding all libros Reporte')
-    const libros = await Libro.find()
+    debug('Finding all libros Reporte')
+    const libros = await Libro.find( { estado: { $ne: 'baja' } } )
     const reporte = []
-    libros.forEach(async li => {
-      if(li.isb) {
-        let lastPrestamo = li.prestamos[li.prestamos.length - 1]
-        if(!lastPrestamo.fecha_devolucion) {
-          if( !tolerancia(lastPrestamo.fecha_limite_devolucion) ) {
-            li.estado = 'deben'
-            await li.save()
-          }
+    for(let i=0; i < libros.length; i++) {
+      let pres = libros[i].prestamos.length
+      let copy = 1
+      for(let j=i+1; j < libros.length; j++) {
+        if(libros[i].isbn == libros[j].isbn) {
+          pres += libros[j].prestamos.length
+          copy++
+          libros.splice(j, 1)
+          j--
         }
       }
-    })
+      reporte.push({
+        titulo: libros[i].titulo,
+        autor: libros[i].autor,
+        editorial: libros[i].editorial,
+        año_pub: libros[i].año_pub,
+        isbn: libros[i].isbn,
+        copias: copy,
+        num_pres: pres
+      })
+    }
 
-    return libros*/
+    for(let i=0; i < reporte.length; i++) {
+      for(let j=i+1; j < reporte.length; j++) {
+        if(reporte[i].num_pres < reporte[j].num_pres) {
+          let aux = reporte[j]
+          reporte[j] = reporte[i]
+          reporte[i] = aux
+        }
+      }
+    }
+
+    return reporte
   },
 
   findAllDetails: () => {

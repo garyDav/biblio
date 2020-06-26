@@ -90,6 +90,33 @@
 			"response": []
 		},
 		{
+			"name": "listLibrosReporte",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Requested-With",
+						"value": "XMLHttpRequest",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3500/api/libros/reporte",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"api",
+						"libros",
+						"reporte"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "listLibroByCodigo",
 			"request": {
 				"method": "GET",
@@ -140,7 +167,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3500/api/prestamos/devolucion/5ed82c0e202f862ac48a3655",
+					"raw": "http://localhost:3500/api/prestamos/devolucion/5eecb351c7bbb495f5e933ef",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -150,7 +177,7 @@
 						"api",
 						"prestamos",
 						"devolucion",
-						"5ed82c0e202f862ac48a3655"
+						"5eecb351c7bbb495f5e933ef"
 					]
 				},
 				"description": "actualiza la devolución del prestamo y cambia el estado del libro"
